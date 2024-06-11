@@ -192,10 +192,10 @@ const NavBar = () => {
           <div className="hidden lg:flex">
             <SearchBar className="w-full max-w-xs px-2 py-1 text-black rounded-md" />
           </div>
-          <Link to="/signup" className="text-gray-800 hover:text-gray-300">
+          <Link to="/Signup" className="text-gray-800 hover:text-gray-300">
             <FaUser className="w-6 h-6" />
           </Link>
-          <Link to="/cart" className="text-gray-800 hover:text-gray-300">
+          <Link to="/Cart" className="text-gray-800 hover:text-gray-300">
             <FaShoppingCart className="w-6 h-6" />
           </Link>
         </div>
