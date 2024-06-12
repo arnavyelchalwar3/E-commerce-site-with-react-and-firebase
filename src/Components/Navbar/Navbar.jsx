@@ -177,8 +177,11 @@ const NavBar = () => {
               All Product
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500"></div>
             </Link>
-            <Link to="/about" className="text-gray-800 md:font-bold text-xl hover:text-red-500">About Us</Link>
+            {/* <Link to="/about" className="text-gray-800 md:font-bold text-xl hover:text-red-500">About Us</Link> */}
             <Link to="/contact" className="text-gray-800 md:font-bold text-xl hover:text-red-500">Contact</Link>
+            <Link to="/userdashboard" className="text-gray-800 md:font-bold text-xl hover:text-red-500">User</Link>
+            <Link to="/admindashboard" className="text-gray-800 md:font-bold text-xl hover:text-red-500">admin</Link>
+
           </div>
         </div>
 

@@ -11,6 +11,8 @@ import CartPage from "./Pages/Cart/CartPage";
 import AllProduct from "./Pages/AllProduct/AllProduct";
 import Signup from "./Pages/registration/Signup";
 import Login from "./Pages/registration/Login";
+import UserDashboard from "./Pages/user/UserDashboard"; 
+import AdminDashboard from "./Pages/admin/AdminDashboard";
 const App = () => {
   return ( 
     <div>
@@ -24,6 +26,9 @@ const App = () => {
           <Route path="/allproduct" element={<AllProduct />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/userdashboard" element = {<UserDashboard/>} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+ 
         </Routes>
       </Router>
     </div>

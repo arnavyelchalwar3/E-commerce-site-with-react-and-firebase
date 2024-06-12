@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../../Components/Layout/Layout';
+import { Link } from 'react-router-dom';
 
 const Login = ({ toggleAuth }) => {
   const [email, setEmail] = useState('');
@@ -41,7 +42,8 @@ const Login = ({ toggleAuth }) => {
         </form>
         <p className="mt-4 text-center">
           Don't have an account?{' '}
-          <button onClick={toggleAuth} className="text-gray-500 underline">Sign Up</button>
+           <Link to="/signup" className="text-blue-500 underline">Sign Up</Link>
+          {/* <button onClick={toggleAuth} className="text-gray-500 underline">Sign Up</button> */}
         </p>
       </div>
     </div>
