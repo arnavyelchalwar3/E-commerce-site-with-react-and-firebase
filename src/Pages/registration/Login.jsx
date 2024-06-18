@@ -83,8 +83,8 @@ const Login = () => {
      *                          User Login Function
     *========================================================================**/
 
-    const userLoginFunction = async () => {
-        // validation
+const userLoginFunction = async () => {
+        // validation 
         if (userLogin.email === "" || userLogin.password === "") {
             toast.error("All Fields are required")
         }
@@ -110,9 +110,9 @@ const Login = () => {
                     toast.success("Login Successfully");
                     setLoading(false);
                     if(user.role === "user") {
-                        navigate('/user-dashboard');
+                        navigate('/userDashboard');
                     }else{
-                        navigate('/admin-dashboard');
+                        navigate('/admindashboard');
                     }
                 });
                 return () => data;

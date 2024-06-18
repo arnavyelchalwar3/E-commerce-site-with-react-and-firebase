@@ -151,11 +151,20 @@
 // export default NavBar;
 
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaShoppingCart } from "react-icons/fa"; // Importing icons from react-icons
 import SearchBar from "../searchBar/searchBar";
 
 const NavBar = () => {
+
+  const user = JSON.parse(localStorage.getItem('navigate'));
+
+  const navigate =useNavigate();
+
+  const logout = () => {
+    localStorage.clear('users');
+    navigate('/login');
+  }
   return (
     <nav className="bg-white shadow-md h-20 mt-6                        ">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
@@ -179,27 +188,39 @@ const NavBar = () => {
             </Link>
             {/* <Link to="/about" className="text-gray-800 md:font-bold text-xl hover:text-red-500">About Us</Link> */}
             <Link to="/contact" className="text-gray-800 md:font-bold text-xl hover:text-red-500">Contact</Link>
-            <Link to="/userdashboard" className="text-gray-800 md:font-bold text-xl hover:text-red-500">User</Link>
-            <Link to="/admindashboard" className="text-gray-800 md:font-bold text-xl hover:text-red-500">admin</Link>
+
+            {user?.role === "user" &&  <Link to={'/userdashboard'}       
+            className="text-gray-800 md:font-bold text-xl
+             hover:text-red-500">{user?.name}   </Link> }
+
+            {user?.role === "admin" &&<Link to= {'/admindashboard'}
+            className="text-gray-800 md:font-bold text-xl hover:text-red-500">{user ?.name}</Link>} 
+
+             {user && <Link to="/" className="text-gray-800  md:font-bold text-xl hover:text-red-500">User</Link>}
 
           </div>
         </div>
+
 
         {/* Center: Search Bar */}
         <div className="flex justify-center flex-1 lg:hidden">
           <SearchBar className="w-full max-w-xs px-2 py-1 text-black rounded-md" />
         </div>
-
+              
         {/* Right: Icons for Login/Signup and Cart */}
         <div className="flex items-center space-x-4">
           <div className="hidden lg:flex">
             <SearchBar className="w-full max-w-xs px-2 py-1 text-black rounded-md" />
           </div>
-          <Link to="/Signup" className="text-gray-800 hover:text-gray-300">
+            {/* signup */}
+        {!user ?  <Link to="/Signup" className="text-gray-800 md:font-bold text-xl hover:text-red-500">
+         Signup </Link> :""}
+              {/* Login */}
+         {!user ? <Link to="/login" className="text-gray-800 hover:text-gray-300">
             <FaUser className="w-6 h-6" />
-          </Link>
+          </Link> :""}
           <Link to="/Cart" className="text-gray-800 hover:text-gray-300">
-            <FaShoppingCart className="w-6 h-6" />
+            (0) <FaShoppingCart  className="w-6 h-6" /> 
           </Link>
         </div>
       </div>
@@ -208,4 +229,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
