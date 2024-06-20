@@ -67,6 +67,7 @@
 // }
 
 // export default Navbar;
+
 // import { Link } from "react-router-dom";
 // import { FaUser, FaShoppingCart } from "react-icons/fa"; // Importing icons from react-icons
 // import SearchBar from "../searchBar/searchBar";
@@ -149,83 +150,100 @@
 // };
 
 // export default NavBar;
-
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { FaUser, FaShoppingCart } from "react-icons/fa"; // Importing icons from react-icons
-import SearchBar from "../searchBar/searchBar";
+import { FaUser, FaShoppingCart } from "react-icons/fa";
+import SearchBar from '../searchBar/searchBar';
 
-const NavBar = () => {
+const Navbar = () => {
+    // Get user from localStorage 
+    const user = JSON.parse(localStorage.getItem('users'));
 
-  const user = JSON.parse(localStorage.getItem('navigate'));
+    // Navigate 
+    const navigate = useNavigate();
 
-  const navigate =useNavigate();
+    // Logout function 
+    const logout = () => {
+        localStorage.clear('users');
+        navigate("/login");
+    };
 
-  const logout = () => {
-    localStorage.clear('users');
-    navigate('/login');
-  }
-  return (
-    <nav className="bg-white shadow-md h-20 mt-6                        ">
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
-        {/* Left: Logo */}
-        <div className="flex items-center space-x-4">
-          <div className="text-lg font-bold text-gray-800">
-            <Link to="/" className="text-2xl font-bold text-gray-900">
-              M<span className="text-red-500">a</span>x Store.
-            </Link>
-          </div>
-        </div>
+    // navList Data
+    const navList = (
+        <ul className="flex space-x-3 text-gray-800 font-medium text-md px-5 ">
+            {/* Home */}
+            <li>
+                <Link to={'/'}  className='text-gray-800 hover:text-red-500 font-bold '>Home</Link>
+            </li>
 
-        {/* Center: Navigation Links */}
-        <div className="hidden lg:flex justify-center flex-1">
-          <div className="flex space-x-4">
-            <Link to="/" className="text-gray-800  md:font-bold text-xl hover:text-red-500">Home</Link>
-            <Link to="/contact" className="text-gray-800  md:font-bold text-xl hover:text-red-500">Contact</Link>
-            <Link to="/allproduct" className="text-gray-800  md:font-bold text-xl hover:text-red-500 relative">
-              All Product
-              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-red-500"></div>
-            </Link>
-            {/* <Link to="/about" className="text-gray-800 md:font-bold text-xl hover:text-red-500">About Us</Link> */}
-            <Link to="/contact" className="text-gray-800 md:font-bold text-xl hover:text-red-500">Contact</Link>
+            {/* All Products */}
+            <li>
+                <Link to={'/allproduct'}  className='text-gray-800 hover:text-red-500 font-bold ' >All Products</Link>
+            </li>
 
-            {user?.role === "user" &&  <Link to={'/userdashboard'}       
-            className="text-gray-800 md:font-bold text-xl
-             hover:text-red-500">{user?.name}   </Link> }
+            {/* Signup */}
+            {!user ? <li>
+                <Link to={'/signup'}  className='text-gray-800 hover:text-red-500 font-bold '>Signup</Link>
+            </li> : ""}
 
-            {user?.role === "admin" &&<Link to= {'/admindashboard'}
-            className="text-gray-800 md:font-bold text-xl hover:text-red-500">{user ?.name}</Link>} 
+            {/* Login */}
+            {!user ? <li>
+                <Link to={'/login'}   className='text-gray-800 hover:text-red-500 font-bold '>Login</Link>
+            </li> : ""}
 
-             {user && <Link to="/" className="text-gray-800  md:font-bold text-xl hover:text-red-500">User</Link>}
+            {/* User */}
+            {user?.role === "user" && <li>
+                <Link to={'/user-dashboard'}  className='text-gray-800 hover:text-red-500 font-bold '>User</Link>
+            </li>}
 
-          </div>
-        </div>
+            {/* Admin */}
+            {user?.role === "admin" && <li>
+                <Link to={'/admin-dashboard'}  className='text-gray-800 hover:text-red-500 font-bold '>Admin</Link>
+            </li>}
 
+            {/* Logout */}
+            {user && <li  onClick={logout}  className='text-gray-800 hover:text-red-500 font-bold '>
+                Logout
+            </li>}
 
-        {/* Center: Search Bar */}
-        <div className="flex justify-center flex-1 lg:hidden">
-          <SearchBar className="w-full max-w-xs px-2 py-1 text-black rounded-md" />
-        </div>
-              
-        {/* Right: Icons for Login/Signup and Cart */}
-        <div className="flex items-center space-x-4">
-          <div className="hidden lg:flex">
-            <SearchBar className="w-full max-w-xs px-2 py-1 text-black rounded-md" />
-          </div>
-            {/* signup */}
-        {!user ?  <Link to="/Signup" className="text-gray-800 md:font-bold text-xl hover:text-red-500">
-         Signup </Link> :""}
-              {/* Login */}
-         {!user ? <Link to="/login" className="text-gray-800 hover:text-gray-300">
-            <FaUser className="w-6 h-6" />
-          </Link> :""}
-          <Link to="/Cart" className="text-gray-800 hover:text-gray-300">
-            (0) <FaShoppingCart  className="w-6 h-6" /> 
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
+            {/* Cart */}
+            {/* <li>
+                <Link to={'/cart'}>
+                    Cart(0)
+                </Link>
+            </li> */} 
+        </ul>
+    );
+
+    return (
+        <nav className="bg-white shadow-md sticky top-0 h-20">
+            <div className="container mx-auto flex justify-between items-center py-3 px-6 lg:px-10">
+                {/* Left: Brand */}
+                <div className="left py-3 lg:py-0 text-lg font-bold text-gray-800 mt-3 ">
+                    <Link to={'/'}>
+                       <a href="/" className="text-2xl font-bold text-gray-900">M<span className="text-red-500">a</span>x fashion.</a>
+                    </Link>
+                </div>
+
+                {/* Center: Search Bar */}
+                <div className="flex-1 flex justify-center mb-4 lg:mb-0 mt-3 ">
+                    <SearchBar className="w-full max-w-md lg:max-w-lg px-2 py-1 text-black rounded-md" />
+                </div>
+
+                {/* Right: Navigation Links */}
+                <div className="right flex items-center space-x-6  mt-3 ">
+                    {navList}
+                    {/* Icons */}
+                    <Link to={'/signup'} className="text-gray-800 hover:text-gray-500">
+                        <FaUser className="w-6 h-6" />
+                    </Link>
+                    <Link to={'/cart'} className="text-gray-800 hover:text-gray-500">
+                        0 <FaShoppingCart className="w-6 h-6" /> 
+                    </Link>
+                </div>
+            </div>
+        </nav>
+    );
 };
 
-export default NavBar;
+export default Navbar;
