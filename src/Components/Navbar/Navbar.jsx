@@ -193,7 +193,7 @@ const Navbar = () => {
 
             {/* User */}
             {user?.role === "user" && <li>
-                <Link to={'/user-dashboard'}  className='text-gray-800 hover:text-red-500 font-bold '>User</Link>
+                <Link to={'/user-dashboard'}  className='text-gray-800 hover:text-red-500 font-bold '>Amey patil</Link>
             </li>}
 
             {/* Admin */}
